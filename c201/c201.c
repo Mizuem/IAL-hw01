@@ -114,7 +114,7 @@ void List_InsertFirst( List *list, int data ) {
 	new->data = data;
 	new->nextElement = list->firstElement;
 	list->firstElement = new;
-	list->activeElement = new;
+	//list->activeElement = new;
 	
 }
 
@@ -165,7 +165,7 @@ void List_DeleteFirst( List *list ) {
 	if(list->firstElement != NULL){
 		tmp = list->firstElement;
 		list->firstElement = list->firstElement->nextElement;
-		list->activeElement = list->activeElement->nextElement;
+		//list->activeElement = list->activeElement->nextElement;
 		free(tmp);
 	}
 
