@@ -164,8 +164,11 @@ void List_DeleteFirst( List *list ) {
 	ListElementPtr tmp;
 	if(list->firstElement != NULL){
 		tmp = list->firstElement;
+		if(list->activeElement == list->firstElement){
+			list->activeElement = NULL;
+		}
 		list->firstElement = list->firstElement->nextElement;
-		//list->activeElement = list->activeElement->nextElement;
+		
 		free(tmp);
 	}
 
