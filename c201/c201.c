@@ -1,5 +1,7 @@
-/* c201.c **********************************************************************
-** Téma: Jednosměrný lineární seznam
+/*  Autor: Denys Malytskyi(xmalytd00)
+c201.c **********************************************************************
+** 
+**	Téma: Jednosměrný lineární seznam
 **
 **                     Návrh a referenční implementace: Petr Přikryl, říjen 1994
 **                                          Úpravy: Andrea Němcová listopad 1996

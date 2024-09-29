@@ -1,4 +1,5 @@
-/* ******************************* c206.c *********************************** */
+/* Autor: Denys Malytskyi(xmalytd00) 
+   ******************************* c206.c *********************************** */
 /*  Předmět: Algoritmy (IAL) - FIT VUT v Brně                                 */
 /*  Úkol: c206 - Dvousměrně vázaný lineární seznam                            */
 /*  Návrh a referenční implementace: Bohuslav Křena, říjen 2001               */

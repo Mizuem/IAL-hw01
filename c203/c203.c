@@ -1,4 +1,5 @@
-/* ******************************* c203.c *********************************** */
+/* Autor: Denys Malytskyi(xmalytd00)
+   ******************************* c203.c *********************************** */
 /*  Předmět: Algoritmy (IAL) - FIT VUT v Brně                                 */
 /*  Úkol: c203 - Fronta znaků v poli                                          */
 /*  Referenční implementace: Petr Přikryl, 1994                               */
