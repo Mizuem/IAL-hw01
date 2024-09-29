@@ -149,7 +149,7 @@ int Queue_IsFull( const Queue *queue ) {
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
 void Queue_Front( const Queue *queue, char *dataPtr ) {
-	if(queue->firstIndex == queue->freeIndex){
+	if(Queue_IsEmpty(queue) == 1){ //if the queue is empty then we get an error message
 		Queue_Error(QERR_FRONT);
 		return;
 	}
@@ -165,12 +165,12 @@ void Queue_Front( const Queue *queue, char *dataPtr ) {
  * @param queue Ukazatel na inicializovanou strukturu fronty
  */
 void Queue_Remove( Queue *queue ) {
-	if(queue->firstIndex == queue->freeIndex){
+	if(Queue_IsEmpty(queue) == 1){ //if the queue is empty we get an error message
 		Queue_Error(QERR_REMOVE);
 		return;
 	}
-	queue->firstIndex++;
-	if(queue->firstIndex == QUEUE_SIZE){
+	queue->firstIndex++; //removing a character for the beginning of queue
+	if(queue->firstIndex == QUEUE_SIZE){ //case of first index going out of bounds of queue size
 		queue->firstIndex = nextIndex(queue->firstIndex);
 		return;
 	}
@@ -188,14 +188,14 @@ void Queue_Remove( Queue *queue ) {
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
 void Queue_Dequeue( Queue *queue, char *dataPtr ) {
-	if(Queue_IsEmpty(queue) == 1){
+	if(Queue_IsEmpty(queue) == 1){//if queue is empty we get an error message
 		Queue_Error(QERR_DEQUEUE);
 		return;
 	}
-	char tmp = queue->array[queue->firstIndex];
+	char tmp = queue->array[queue->firstIndex];//save the character before removing it
 	*dataPtr = tmp;
-	queue->firstIndex++;
-	if(queue->firstIndex == QUEUE_SIZE){
+	queue->firstIndex++; //removing a character
+	if(queue->firstIndex == QUEUE_SIZE){ //case of first index going out of bounds of queue size
 		queue->firstIndex = nextIndex(queue->firstIndex);
 		return;
 	}
@@ -215,13 +215,13 @@ void Queue_Dequeue( Queue *queue, char *dataPtr ) {
  * @param data Znak k vložení
  */
 void Queue_Enqueue( Queue *queue, char data ) {
-	if(Queue_IsFull(queue) == 1){
+	if(Queue_IsFull(queue) == 1){//if the queue is full we get an error message
 		Queue_Error(QERR_ENQUEUE);
 		return;
 	}
-	queue->array[queue->freeIndex] = data;
-	queue->freeIndex++;
-	if(queue->freeIndex == QUEUE_SIZE){
+	queue->array[queue->freeIndex] = data;//inserting a character at the first available space 
+	queue->freeIndex++;//moving the index of a free space
+	if(queue->freeIndex == QUEUE_SIZE){//case of free index going out of bounds of queue size
 		queue->freeIndex = nextIndex(queue->freeIndex);
 		return;
 	}

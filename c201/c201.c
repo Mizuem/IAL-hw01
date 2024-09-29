@@ -64,6 +64,7 @@ void List_Error(void) {
  * @param list Ukazatel na strukturu jednosměrně vázaného seznamu
  */
 void List_Init( List *list ) {
+	//set the first and active element pointers to NULL
 	list->firstElement = NULL;
 	list->activeElement = NULL;
 	
@@ -79,11 +80,11 @@ void List_Init( List *list ) {
 void List_Dispose( List *list ) {
 	ListElementPtr temp;
 	while( list->firstElement != NULL){
-		temp = list->firstElement;
-		list->firstElement = list->firstElement->nextElement;
-		free(temp);
+		temp = list->firstElement; //set the temp pointer to point to the same plase as first element
+		list->firstElement = list->firstElement->nextElement; //move first element pointer to the next element
+		free(temp); //delete the current first element
 	}
-	list->firstElement = NULL;
+	list->firstElement = NULL; //set the first and active element pointers to NULL after the while loop
 	list->activeElement = NULL;
 }
 
@@ -96,15 +97,15 @@ void List_Dispose( List *list ) {
  * @param data Hodnota k vložení na začátek seznamu
  */
 void List_InsertFirst( List *list, int data ) {	
-	ListElementPtr new = (ListElementPtr)malloc(sizeof(struct ListElement));
+	ListElementPtr new = (ListElementPtr)malloc(sizeof(struct ListElement)); 
 	if(new == NULL){
 		List_Error();
 		return;
 	}
-	new->data = data;
-	new->nextElement = list->firstElement;
-	list->firstElement = new;
-	//list->activeElement = new;
+	new->data = data; 
+	new->nextElement = list->firstElement; //pointer to the previous first element
+	list->firstElement = new; //first element pointing at the new element
+	
 	
 }
 
@@ -144,12 +145,12 @@ void List_GetFirst( List *list, int *dataPtr ) {
  */
 void List_DeleteFirst( List *list ) {	
 	ListElementPtr tmp;
-	if(list->firstElement != NULL){
-		tmp = list->firstElement;
-		if(list->activeElement == list->firstElement){
+	if(list->firstElement != NULL){ //checking if there is something to delete
+		tmp = list->firstElement; 
+		if(list->activeElement == list->firstElement){ //if deleted element was the active we lose list activity
 			list->activeElement = NULL;
 		}
-		list->firstElement = list->firstElement->nextElement;
+		list->firstElement = list->firstElement->nextElement; //move the fisrt element
 		
 		free(tmp);
 	}
@@ -164,12 +165,13 @@ void List_DeleteFirst( List *list ) {
  * @param list Ukazatel na inicializovanou strukturu jednosměrně vázaného seznamu
  */
 void List_DeleteAfter( List *list ) {
-	if(List_IsActive(list) == 0 || list->activeElement->nextElement == NULL){
+	//if the list is not active or the active element is the last one - nothing happens
+	if(List_IsActive(list) == 0 || list->activeElement->nextElement == NULL){ 
 		return;
 	}
 	ListElementPtr tmp;
-	tmp = list->activeElement->nextElement;
-	list->activeElement->nextElement = tmp->nextElement;
+	tmp = list->activeElement->nextElement; //set the tmp to point to element that goes after the active one
+	list->activeElement->nextElement = tmp->nextElement; //setting the next pointer of active element to skip the deleted one
 	
 	free(tmp);
 
@@ -185,7 +187,7 @@ void List_DeleteAfter( List *list ) {
  * @param data Hodnota k vložení do seznamu za právě aktivní prvek
  */
 void List_InsertAfter( List *list, int data ) {
-	if(List_IsActive(list) == 0){
+	if(List_IsActive(list) == 0){ //if list is not active - nothing happens
 		return;
 	}
 	ListElementPtr new = (ListElementPtr)malloc(sizeof(struct ListElement));
@@ -194,7 +196,8 @@ void List_InsertAfter( List *list, int data ) {
 		return;
 	}
 	new->data = data;
-	list->activeElement->nextElement = new;
+	new->nextElement = list->activeElement->nextElement;//set new element next pointer to point after the active element 
+	list->activeElement->nextElement = new;//active element points at the new one
 
 }
 
@@ -222,10 +225,10 @@ void List_GetValue( List *list, int *dataPtr ) {
  * @param data Nová hodnota právě aktivního prvku
  */
 void List_SetValue( List *list, int data ) {
-	if(List_IsActive(list) == 0){
+	if(List_IsActive(list) == 0){ //list is not active - nothing happens
 		return;
 	}
-	list->activeElement->data = data;
+	list->activeElement->data = data; //sets the value of active element
 }
 
 /**
@@ -236,10 +239,10 @@ void List_SetValue( List *list, int data ) {
  * @param list Ukazatel na inicializovanou strukturu jednosměrně vázaného seznamu
  */
 void List_Next( List *list ) {
-	if(List_IsActive(list) == 0){
+	if(List_IsActive(list) == 0){//list is not active - nothing happens
 		return;
 	}
-	list->activeElement = list->activeElement->nextElement;
+	list->activeElement = list->activeElement->nextElement;//moves currently active element
 
 }
 
