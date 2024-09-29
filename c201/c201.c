@@ -64,11 +64,6 @@ void List_Error(void) {
  * @param list Ukazatel na strukturu jednosměrně vázaného seznamu
  */
 void List_Init( List *list ) {
-	if(list == NULL){
-		List_Error();
-		return;
-	}
-
 	list->firstElement = NULL;
 	list->activeElement = NULL;
 	
@@ -100,12 +95,7 @@ void List_Dispose( List *list ) {
  * @param list Ukazatel na inicializovanou strukturu jednosměrně vázaného seznamu
  * @param data Hodnota k vložení na začátek seznamu
  */
-void List_InsertFirst( List *list, int data ) {
-	if(list == NULL){
-		List_Error();
-		return;
-	}
-	
+void List_InsertFirst( List *list, int data ) {	
 	ListElementPtr new = (ListElementPtr)malloc(sizeof(struct ListElement));
 	if(new == NULL){
 		List_Error();
@@ -136,10 +126,6 @@ void List_First( List *list ) {
  * @param dataPtr Ukazatel na cílovou proměnnou
  */
 void List_GetFirst( List *list, int *dataPtr ) {
-	if(list == NULL){
-		List_Error();
-		return;
-	}
 	if(list->firstElement == NULL){
 		List_Error();
 		return;
@@ -156,11 +142,7 @@ void List_GetFirst( List *list, int *dataPtr ) {
  *
  * @param list Ukazatel na inicializovanou strukturu jednosměrně vázaného seznamu
  */
-void List_DeleteFirst( List *list ) {
-	if(list == NULL){
-		return;
-	}
-	
+void List_DeleteFirst( List *list ) {	
 	ListElementPtr tmp;
 	if(list->firstElement != NULL){
 		tmp = list->firstElement;
